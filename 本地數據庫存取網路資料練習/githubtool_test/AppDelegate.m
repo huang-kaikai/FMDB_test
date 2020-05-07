@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "TestViewController.h"
 #import "SQL_test_ViewController.h"
+#import "LocalLoadDataTestViewController.h"
 
 
 @interface AppDelegate ()
@@ -31,17 +32,23 @@
 //    self.window.rootViewController = rootNAV;
 //    [self.window makeKeyAndVisible];
     
-    TestViewController *rootVC = [[TestViewController alloc] init];
-    UINavigationController *rootNAV = [[UINavigationController alloc] initWithRootViewController:rootVC];
-
-    self.window.rootViewController = rootNAV;
-    [self.window makeKeyAndVisible];
+//    TestViewController *rootVC = [[TestViewController alloc] init];
+//    UINavigationController *rootNAV = [[UINavigationController alloc] initWithRootViewController:rootVC];
+//
+//    self.window.rootViewController = rootNAV;
+//    [self.window makeKeyAndVisible];
     
 //    SQL_test_ViewController *rootVC = [[SQL_test_ViewController alloc] init];
 //    UINavigationController *rootNAV = [[UINavigationController alloc] initWithRootViewController:rootVC];
 //
 //    self.window.rootViewController = rootNAV;
 //    [self.window makeKeyAndVisible];
+    
+    LocalLoadDataTestViewController *rootVC = [[LocalLoadDataTestViewController alloc] init];
+    UINavigationController *rootNAV = [[UINavigationController alloc] initWithRootViewController:rootVC];
+
+    self.window.rootViewController = rootNAV;
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
