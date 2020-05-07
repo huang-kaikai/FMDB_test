@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "TestViewController.h"
+#import "SQL_test_ViewController.h"
 
 
 @interface AppDelegate ()
@@ -35,6 +36,12 @@
 
     self.window.rootViewController = rootNAV;
     [self.window makeKeyAndVisible];
+    
+//    SQL_test_ViewController *rootVC = [[SQL_test_ViewController alloc] init];
+//    UINavigationController *rootNAV = [[UINavigationController alloc] initWithRootViewController:rootVC];
+//
+//    self.window.rootViewController = rootNAV;
+//    [self.window makeKeyAndVisible];
     
     return YES;
 }

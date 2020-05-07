@@ -48,6 +48,7 @@
 		A3C7C2572462A8B300A7EA98 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C7C24D2462A8B300A7EA98 /* FMResultSet.m */; };
 		A3C7C2582462A8B300A7EA98 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C7C24F2462A8B300A7EA98 /* FMDatabasePool.m */; };
 		A3C7C2592462A8B300A7EA98 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C7C2532462A8B300A7EA98 /* FMDatabase.m */; };
+		A3C7C2812462BE5B00A7EA98 /* SQL_test_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C7C2802462BE5B00A7EA98 /* SQL_test_ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +137,8 @@
 		A3C7C2522462A8B300A7EA98 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		A3C7C2532462A8B300A7EA98 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		A3C7C2542462A8B300A7EA98 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		A3C7C27F2462BE5B00A7EA98 /* SQL_test_ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQL_test_ViewController.h; sourceTree = "<group>"; };
+		A3C7C2802462BE5B00A7EA98 /* SQL_test_ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQL_test_ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,8 @@
 				A3C7C1BC2461718600A7EA98 /* image.png */,
 				A3C7C22524629D8300A7EA98 /* FMDBViewController.h */,
 				A3C7C22624629D8300A7EA98 /* FMDBViewController.m */,
+				A3C7C27F2462BE5B00A7EA98 /* SQL_test_ViewController.h */,
+				A3C7C2802462BE5B00A7EA98 /* SQL_test_ViewController.m */,
 				A3C7C0FC2461114B00A7EA98 /* Assets.xcassets */,
 				A3C7C0FE2461114B00A7EA98 /* LaunchScreen.storyboard */,
 				A3C7C1012461114B00A7EA98 /* Info.plist */,
@@ -372,6 +377,7 @@
 				A3C7C2432462A87B00A7EA98 /* NSObject+MJKeyValue.m in Sources */,
 				A3C7C11C2461116800A7EA98 /* AFNetworkReachabilityManager.m in Sources */,
 				A3C7C20424626B0E00A7EA98 /* GirlsDataModel.m in Sources */,
+				A3C7C2812462BE5B00A7EA98 /* SQL_test_ViewController.m in Sources */,
 				A3C7C2452462A87B00A7EA98 /* MJPropertyType.m in Sources */,
 				A3C7C1FA2462624B00A7EA98 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				A3C7C1F72462624B00A7EA98 /* UIButton+AFNetworking.m in Sources */,

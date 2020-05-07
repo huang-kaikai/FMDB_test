@@ -10,12 +10,16 @@
 #import "cTableViewCell.h"
 #import "MJExtension.h"
 #import "GirlsDataModel.h"
+#import "FMDB.h"
 
 
 @interface TestViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property UITableView *cTableView;
 @property (strong,nonatomic) NSArray *dataSource;
+
+//建立數據庫相關屬性
+@property(nonatomic, strong) FMDatabaseQueue *dbQueue;
 
 @end
 
@@ -44,7 +48,175 @@
     self.cTableView.delegate = self;
     
     [self loadData];
+    
+#pragma mark 數據庫
+    [self createTable];
+    [self insert];
+    //[self update];
+    [self query];
+    
+    
 }
+
+
+#pragma mark - 數據庫相關設定
+/*
+ 自定义方法：创建表
+ */
+- (void)createTable{
+    //创建数据库路径
+    NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SQLite2.db"];
+    //打印出數據庫路徑
+    NSLog(@"路徑：%@", dbPath);
+    //创建数据库DB对象
+    self.dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
+    
+    //获取db操作对象
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        NSLog(@"数据库打开成功");
+        //创建表格的sql
+        NSString *sql = @"create table if not exists user (id integer primary key autoincrement, name text, city text, height text, weight text, fansNumb text, picture text);";
+        //执行sql语句，增、删、改都用executeUpdate
+        BOOL result = [db executeUpdate:sql];
+        if(result){
+            NSLog(@"表创建成功");
+        } else {
+            NSLog(@"表创建失败");
+        }
+    }];
+    
+    
+    //关闭数据库
+//    [self.db close];
+}
+
+
+/*
+ 自定义方法：插入数据
+ */
+- (void)insert{
+    //获取db操作对象
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        NSString *name = @"王美麗";
+        NSString *city = @"杜拜";
+        NSString *height = @"168";
+        NSString *weight = @"44";
+        NSString *fansNumb = @"100";
+        NSString *picture = @"image.jpg";
+        
+        //开启事务
+        [db beginTransaction];
+        
+        //插入sql语句
+        NSString *sql = @"insert into user (name, city, height, weight, fansNumb, picture) values (?, ?, ?, ?, ?, ?);";
+        //插入数据
+        [db executeUpdate:sql, name, city, height, weight, fansNumb, picture];
+        
+        //提交事务
+        [db commit];
+        
+        NSLog(@"插入数据成功");
+     }];
+}
+
+
+/*
+ 自定义方法：更新数据
+ */
+//- (void)update{
+//    //获取db操作对象
+//    [self.dbQueue inDatabase:^(FMDatabase *db) {
+//        NSString *job = @"高级工程师";
+//        int age = 27;
+//        NSString *name = @"王先生";
+//
+//        //开启事务
+//        [db beginTransaction];
+//
+//        //更新sql语句
+//        NSString *sql = @"update user set job = ?, age = ? where name = ?;";
+//        //插入数据
+//        [db executeUpdate:sql, job, @(age), name];
+//
+//        //提交事务
+//        [db commit];
+//
+//        NSLog(@"更新数据成功");
+//    }];
+//}
+
+
+/*
+ 自定义方法：查询数据
+ */
+- (void)query{
+    //获取db操作对象
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        NSString *city = @"杜拜";
+        //查询sql语句
+        NSString *sql = @"select * from user where city = ?;";
+        //查询
+        FMResultSet *rs = [db executeQuery:sql, city];
+        //循环遍历结果集
+        while(rs.next){
+            /*
+             取出各列的值
+             */
+            int _id = [rs intForColumn:@"id"];
+            NSString *name = [rs stringForColumn:@"name"];
+            NSString *city = [rs stringForColumn:@"city"];
+            NSString *height = [rs stringForColumn:@"height"];
+            NSString *weight = [rs stringForColumn:@"weight"];
+            NSString *fansNumb = [rs stringForColumn:@"fansNumb"];
+            NSString *picture = [rs stringForColumn:@"picture"];
+            //打印结果
+            NSLog(@"_id: %d, name: %@, city: %@, height: %@, weight: %@, fansNumb: %@, picture: %@",  _id, name, city, height, weight, fansNumb, picture);
+        }
+   }];
+}
+
+
+/*
+ 自定义方法1，让增删改在事务中执行1
+ */
+//- (void)inTransaction1:(FMDatabase *)db {
+//    //开启事务
+////        [db executeUpdate:@"begin transaction;"];
+//    [db beginTransaction];
+//
+//    //增删改操作代码
+//    [db executeUpdate:@"sql语句"];
+//
+//    if(NO){//需要回滚的条件
+//        //回滚事务，取消操作，需要在提交之前执行
+////        [db executeUpdate:@"rollback transaction;"];
+//        [db rollback];
+//    }
+//
+//    //提交事务
+////        [db executeUpdate:@"commit transaction;"];
+//    [db commit];
+//}
+
+
+
+/*
+ 自定义方法2，让增删改在事务中执行2
+ */
+- (void)inTransaction2 {
+    //此操作在事务中执行
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        //增删改操作代码
+        [db executeUpdate:@"sql语句"];
+        
+        if(NO){//需要回滚的条件
+            *rollback = YES; //设置为回滚操作
+        }
+    }];
+}
+
+
+
 
 #pragma mark - 發送網路請求
 //發送異步請求獲取數據
